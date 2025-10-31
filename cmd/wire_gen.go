@@ -23,8 +23,7 @@ func InitializeTaskHandler() (*handler.TaskHandler, error) {
 	}
 	taskRepository := repository.NewTaskRepository(db)
 	taskService := service.NewTaskService(taskRepository)
-	client := service.NewDatadogClient()
-	taskHandler := handler.NewTaskHandler(taskService, client)
+	taskHandler := handler.NewTaskHandler(taskService)
 	return taskHandler, nil
 }
 

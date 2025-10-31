@@ -27,7 +27,6 @@ func InitDB() (*gorm.DB, error) {
 func InitializeTaskHandler() (*handler.TaskHandler, error) {
 	wire.Build(
 		InitDB,
-		service.NewDatadogClient,
 		repository.NewTaskRepository,
 		service.NewTaskService,
 		handler.NewTaskHandler,

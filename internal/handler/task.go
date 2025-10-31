@@ -4,20 +4,17 @@ import (
 	"demo-twelve/internal/request"
 	"demo-twelve/internal/service"
 	"fmt"
-	"github.com/DataDog/datadog-go/statsd"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 type TaskHandler struct {
-	service       *service.TaskService
-	datadogClient *statsd.Client
+	service *service.TaskService
 }
 
-func NewTaskHandler(taskService *service.TaskService, datadogClient *statsd.Client) *TaskHandler {
+func NewTaskHandler(taskService *service.TaskService) *TaskHandler {
 	return &TaskHandler{
-		service:       taskService,
-		datadogClient: datadogClient,
+		service: taskService,
 	}
 }
 
@@ -37,8 +34,6 @@ func (t *TaskHandler) AddTask(ctx *gin.Context) {
 	var task *request.Task
 	if err := ctx.ShouldBind(&task); err != nil {
 		fmt.Printf(err.Error())
-		// Contador de errores
-		t.datadogClient.Incr("handler.errors", []string{"endpoint:AddTask"}, 1)
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
