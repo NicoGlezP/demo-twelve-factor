@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"time"
@@ -16,6 +17,8 @@ const (
 
 func main() {
 	router := gin.Default()
+
+	fmt.Printf("Hola mundo")
 
 	router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
