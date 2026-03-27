@@ -4,8 +4,9 @@ import (
 	"demo-twelve/internal/request"
 	"demo-twelve/internal/service"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type TaskHandler struct {
@@ -19,6 +20,8 @@ func NewTaskHandler(taskService *service.TaskService) *TaskHandler {
 }
 
 func (t *TaskHandler) GetTasks(ctx *gin.Context) {
+	fmt.Printf("hello world! getting tasks")
+
 	tasks, err := t.service.GetAllTasks()
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
